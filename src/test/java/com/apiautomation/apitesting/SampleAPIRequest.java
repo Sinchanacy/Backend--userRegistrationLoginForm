@@ -4,13 +4,11 @@ package com.apiautomation.apitesting;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import netscape.javascript.JSObject;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class GETAPIRequest {
+public class SampleAPIRequest {
     @Test
     public void GetRequestTestingForAllUserDetails()
     {

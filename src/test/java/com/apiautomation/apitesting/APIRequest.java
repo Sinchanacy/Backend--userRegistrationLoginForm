@@ -7,7 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 
-public class POSTAPIRequest  {
+public class APIRequest {
     @Test
     public void postRequestForRegistrationWithValidEmail() throws JSONException {
         JSONObject object=new JSONObject();

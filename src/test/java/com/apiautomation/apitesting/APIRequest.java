@@ -189,6 +189,26 @@ public class APIRequest {
                         .response();
         System.out.println("Response => " + response.getBody().asString());
     }
+    @Test
+    public void postRequestForSecuredAPIWithInvalidJWTToken() throws JSONException
+    {
+        Response response=
+                RestAssured.given()
+                        .headers(
+                                "Authorization",
+                                "Bearer " + "yJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0dXNlckBnbWFpbC5jb20iLCJpYXQiOjE2ODYyMjU0MzIsImV4cCI6MTY4NjIyNjg3Mn0.qV7UHvQZWOK8SbXDgHNTTkQ65Vw43_OgyI0yUmVoiFM" ,
+                                "Content-Type",
+                                ContentType.JSON,
+                                "Accept",
+                                ContentType.JSON)
+                        .when()
+                        .get("http://localhost:8080/hello")
+                        .then()
+                        .assertThat().statusCode(403 )
+                        .extract()
+                        .response();
+        System.out.println("Response => " + response.getBody().asString());
+    }
 
 }
  

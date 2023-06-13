@@ -42,6 +42,36 @@ public class APIRequest {
                 then()
                 .assertThat().statusCode(403);
     }
+    @Test
+    public void postRequestForVerifyRegistrationWithValidEmailVerificationToken() throws JSONException {
+        Response response=
+        RestAssured.given()
+                .contentType(ContentType.JSON)
+                .queryParam("token","58e93da8-6c97-4293-876e-faccafbf63fb")
+                .baseUri("http://localhost:8080/verifyReg").
+                when()
+                .get().
+                then()
+                .assertThat().statusCode(200)
+                .extract().response();
+        System.out.println("Response=>" + response.getBody().asString());
+
+    }
+    @Test
+    public void postRequestForVerifyRegistrationWithInvalidEmailVerificationToken() throws JSONException {
+        Response response=
+                RestAssured.given()
+                        .contentType(ContentType.JSON)
+                        .queryParam("token","58e93da8-6c97-4293-876e-faccafbf63f")
+                        .baseUri("http://localhost:8080/verifyReg").
+                        when()
+                        .get().
+                        then()
+                        .assertThat().statusCode(200)
+                        .extract().response();
+        System.out.println("Response=>" + response.getBody().asString());
+
+    }
 
     @Test
     public void postRequestForUserAuthenticationForValidEmailPassword() throws JSONException {
@@ -73,7 +103,6 @@ public class APIRequest {
                         .post()
                         .then()
                          .assertThat().statusCode(403);
-
 
     }
     @Test
@@ -107,7 +136,6 @@ public class APIRequest {
                         .extract().response();
         System.out.println("Response=>" + response.getBody().asString());
     }
-
     @Test
     public void postRequestForForgotPasswordForValidEmail() throws JSONException {
         JSONObject object = new JSONObject();
@@ -210,6 +238,63 @@ public class APIRequest {
                         .extract()
                         .response();
         System.out.println("Response => " + response.getBody().asString());
+    }
+    @Test
+    public void postRequestForChangingPasswordWithValidEmailAndCorrectOldPassword() throws JSONException {
+        JSONObject object = new JSONObject();
+        object.put("email","testuser5@gmail.com");
+        object.put("oldPassword","testusers");
+        object.put("newPassword","testuser");
+        Response response=
+                RestAssured.given()
+                        .contentType(ContentType.JSON)
+                        .body(object.toString())
+                        .baseUri("http://localhost:8080/changePassword")
+                        .when()
+                        .post()
+                        .then()
+                        .assertThat().statusCode(200)
+                        .extract().response();
+        System.out.println("Response => " + response.getBody().asString());
+        assertEquals("Password Changed Successfully",response.getBody().asString());
+    }
+    @Test
+    public void postRequestForChangingPasswordWithInvalidEmailAndCorrectOldPassword() throws JSONException {
+        JSONObject object = new JSONObject();
+        object.put("email","testuser50@gmail.com");
+        object.put("oldPassword","testusers");
+        object.put("newPassword","testuser");
+        Response response=
+                RestAssured.given()
+                        .contentType(ContentType.JSON)
+                        .body(object.toString())
+                        .baseUri("http://localhost:8080/changePassword")
+                        .when()
+                        .post()
+                        .then()
+                        .assertThat().statusCode(200)
+                        .extract().response();
+        System.out.println("Response => " + response.getBody().asString());
+        assertEquals("Email Not Found",response.getBody().asString());
+    }
+    @Test
+    public void postRequestForChangingPasswordWithValidEmailAndIncorrectOldPassword() throws JSONException {
+        JSONObject object = new JSONObject();
+        object.put("email","testuser5@gmail.com");
+        object.put("oldPassword","testusers1");
+        object.put("newPassword","testusers");
+        Response response=
+                RestAssured.given()
+                        .contentType(ContentType.JSON)
+                        .body(object.toString())
+                        .baseUri("http://localhost:8080/changePassword")
+                        .when()
+                        .post()
+                        .then()
+                        .assertThat().statusCode(200)
+                        .extract().response();
+        System.out.println("Response => " + response.getBody().asString());
+        assertEquals("Password does not Match",response.getBody().asString());
     }
 
 }

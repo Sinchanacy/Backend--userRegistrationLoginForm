@@ -41,7 +41,6 @@ public class SampleAPIRequest {
     public void GetRequestTestingForUserDetailsForInvalidUser() throws JSONException {
         RestAssured.given()
                 .contentType(ContentType.JSON)
-                .queryParam("email","newusers@gmail.com")
                 .baseUri("http://localhost:8080/sampleAPIRequest").
                 when().get().
                 then()

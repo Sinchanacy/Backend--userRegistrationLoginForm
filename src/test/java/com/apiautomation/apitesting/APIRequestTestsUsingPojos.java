@@ -30,6 +30,28 @@ public class APIRequestTestsUsingPojos {
         System.out.println(response);
 
         }
+    @Test
+    public void  postRequestForRegistrationWithInValidEmail() throws JsonProcessingException {
+        UserDetails user=new UserDetails("USER","t@gmail.com","USER");
+        ObjectMapper objectMapper=new ObjectMapper();
+        String s=objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(user);
+        System.out.println(s); //serialisation of java class object into json object
+        UserDetails users= objectMapper.readValue(s, UserDetails.class);
+        System.out.println(users); //deserialization of json object into java class object
+        Response response=
+                RestAssured.given()
+                        .contentType(ContentType.JSON)
+                        .body(s)
+                        .baseUri("http://localhost:8080/welcome/register").
+                        log().all().
+                        when()
+                        .post().
+                        then()
+                        .assertThat().statusCode(403)
+                        .extract().response();
+        System.out.println(response);
+
+    }
     }
 
 

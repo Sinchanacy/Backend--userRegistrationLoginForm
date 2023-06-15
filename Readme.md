@@ -13,10 +13,10 @@
 
 ## Getting Started
 
-To get started with this project, you will need to have the following installed on your local machine:
-JDK 17+
-Maven 3+
-MySQL
+To get started with this project, you will need to have the following installed on your local machine:    
+JDK 17+   
+Maven 3+   
+MySQL       
 Text Editor or Integrated Development Environment (IDE)
 
 To build and run the project, follow these steps:
@@ -82,3 +82,26 @@ curl --location --request POST 'localhost:8080/changePassword' \
 }'               
 The password is reset successfully when a valid email and old password is received in the request body.
 
+## Junit testing :
+Junit testcases are written for all the funtionalities of Service layer with  100 % coverage.
+
+## RestAssured API Automation Testing 
+
+Following are the test cases written for API testing:-
+1. postRequestForRegistrationWithValidEmail
+2. postRequestForRegistrationWithInValidEmail
+3. postRequestForVerifyRegistrationWithValidEmailVerificationToken
+4. postRequestForVerifyRegistrationWithInvalidEmailVerificationToken
+5. postRequestForUserAuthenticationForValidEmailPassword
+6. postRequestForUserAuthenticationForNotVerifiedEmailPassword
+7. postRequestForUserAuthenticationForValidEmailInvalidPassword
+8. postRequestForUserAuthenticationForInvalidEmailPassword
+9. postRequestForForgotPasswordForValidEmail
+10. postRequestForForgotPasswordForInvalidEmail
+11. postRequestForSavePasswordWithValidPasswordResetToken
+12. postRequestForSavePasswordWithInValidPasswordResetToken
+13. postRequestForSecuredAPIWithValidJWTToken
+14. postRequestForSecuredAPIWithInvalidJWTToken
+15. postRequestForChangingPasswordWithValidEmailAndCorrectOldPassword
+16. postRequestForChangingPasswordWithInvalidEmailAndCorrectOldPassword
+17. postRequestForChangingPasswordWithValidEmailAndIncorrectOldPassword
